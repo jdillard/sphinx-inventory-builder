@@ -1,9 +1,11 @@
-# Sphinx Inventory Builder
+Sphinx Inventory Builder
+========================
 
 This extension adds an inventory builder, a customized builder which only generates intersphinx "object.inv" inventory files.
 The documentation files are not written.
 
-## Installing
+Installing
+----------
 
 Directly install via pip by using::
 
@@ -16,12 +18,17 @@ For example:
 
    extensions = ['sphinx_inventory_builder']
 
-## How to use
+How to use
+----------
 
 Once installed, run the new `inventory` builder::
 
     sphinx-build -b inventory ./source ./build
 
-## Origin Story
+Origin Story
+------------
 
-This extension was adopted from Sage's [inventory_builder](https://github.com/sagemath/sage/blob/2a9a4267f93588cf33119cbacc032ed9acc433e5/src/sage_docbuild/ext/inventory_builder.py) and turned into an extension so it could be used by others.
+This extension was adopted from Sage's `inventory_builder`_ and turned into an extension so it could be used by others.
+
+.. _extensions: https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-extensions
+.. _inventory_builder: https://github.com/sagemath/sage/blob/2a9a4267f93588cf33119cbacc032ed9acc433e5/src/sage_docbuild/ext/inventory_builder.py
