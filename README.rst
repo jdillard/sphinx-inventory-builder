@@ -18,6 +18,10 @@ For example:
 
    extensions = ['sphinx_inventory_builder']
 
+Optionally, you can configure the filename of the inventory object::
+
+    inventory_filename = "prebuilt-objects.inv"
+
 How to use
 ----------
 

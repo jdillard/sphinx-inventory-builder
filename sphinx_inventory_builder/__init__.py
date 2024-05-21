@@ -15,8 +15,6 @@ from sphinx.application import Sphinx
 from sphinx.builders.dummy import DummyBuilder
 from sphinx.util.inventory import InventoryFile
 
-INVENTORY_FILENAME = "objects.inv"
-
 __version__ = '0.1.0'
 
 class InventoryBuilder(DummyBuilder):
@@ -36,10 +34,12 @@ class InventoryBuilder(DummyBuilder):
         assert self.env is not None
 
         InventoryFile.dump(
-            path.join(self.outdir, INVENTORY_FILENAME), self.env, self
+            path.join(self.outdir, self.app.config.inventory_filename), self.env, self
         )
 
 
 def setup(app: Sphinx) -> dict[str, Any]:
+    app.add_config_value("inventory_filename", default="objects.inv", rebuild="")
+
     app.add_builder(InventoryBuilder)
     return {"parallel_read_safe": True}
