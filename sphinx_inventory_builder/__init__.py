@@ -8,14 +8,14 @@ inventory files. The documentation files are not written.
 from __future__ import annotations
 
 from os import path
-from typing import Any, Iterable
-from urllib.parse import quote
+from typing import Any
 
 from sphinx.application import Sphinx
 from sphinx.builders.dummy import DummyBuilder
 from sphinx.util.inventory import InventoryFile
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"
+
 
 class InventoryBuilder(DummyBuilder):
     """
