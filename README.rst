@@ -27,7 +27,7 @@ Optionally, you can configure the filename of the inventory object:
 How to use
 ----------
 
-Once installed, run the new `inventory-html` or `inventory-singlhtml` builder::
+Once installed, run the new `inventory-html` or `inventory-singlehtml` builder::
 
     sphinx-build -b inventory ./source ./build
 
