@@ -94,26 +94,6 @@ def ignore_external_refs(app, env, node, contnode):
     return contnode
 
 
-def filter_duplicate_equation_warnings(app):
-    """
-    Filter out duplicate equation warnings.
-    A monkey patch until this fix is available: https://github.com/sphinx-doc/sphinx/pull/13929
-    """
-    inventory_builders = ["inventory-html"]
-    if app.builder.name not in inventory_builders:
-        return
-
-    import logging
-
-    class DuplicateEquationFilter(logging.Filter):
-        def filter(self, record):
-            return 'duplicate label of equation' not in record.getMessage()
-
-    # Get the Sphinx logger (not your extension's logger)
-    sphinx_logger = logging.getLogger('sphinx')
-    sphinx_logger.addFilter(DuplicateEquationFilter())
-
-
 def setup(app: Sphinx) -> dict[str, Any]:
     app.add_config_value("inventory_filename", default="objects.inv", rebuild="")
 
@@ -139,7 +119,6 @@ def setup(app: Sphinx) -> dict[str, Any]:
 
     app.connect("config-inited", disable_intersphinx)
     app.connect("builder-inited", on_builder_inited)
-    app.connect("builder-inited", filter_duplicate_equation_warnings)
     app.connect("missing-reference", ignore_external_refs)
 
     return {"parallel_read_safe": True}
