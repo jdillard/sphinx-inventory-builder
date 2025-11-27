@@ -29,7 +29,7 @@ How to use
 
 Once installed, run the new ``inventory-html`` or ``inventory-singlehtml`` builder::
 
-    sphinx-build -b inventory ./source ./build
+    sphinx-build -b inventory-html ./source ./build
 
 Origin Story
 ------------
