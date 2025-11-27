@@ -16,7 +16,7 @@ from sphinx.builders.singlehtml import SingleFileHTMLBuilder
 from sphinx.util.inventory import InventoryFile
 from sphinx.util.logging import getLogger
 
-__version__ = '0.2.0'
+__version__ = "0.2.0"
 
 logger = getLogger(__name__)
 
@@ -25,6 +25,7 @@ class _InventoryMixin:
     """
     Shared behavior: don’t write HTML, just dump objects.inv.
     """
+
     format = "inventory"
     epilog = "The inventory file is in %(outdir)s."
 
@@ -50,11 +51,13 @@ class _InventoryMixin:
 
 class InventoryHtmlBuilder(_InventoryMixin, StandaloneHTMLBuilder):
     """Inventory builder with html-style URIs."""
+
     name = "inventory-html"
 
 
 class InventorySingleHtmlBuilder(_InventoryMixin, SingleFileHTMLBuilder):
     """Inventory builder with singlehtml-style URIs."""
+
     name = "inventory-singlehtml"
 
 
@@ -62,9 +65,9 @@ def disable_intersphinx(app, config):
     inventory_builders = ["inventory-html", "inventory-singlehtml"]
     if detect_builder(app) in inventory_builders:
         config.intersphinx_mapping = {}
-        config.intersphinx_disabled_reftypes = ['*']
+        config.intersphinx_disabled_reftypes = ["*"]
 
-        config.suppress_warnings = ['ref.*', 'docutils']
+        config.suppress_warnings = ["ref.*", "docutils"]
 
 
 def detect_builder(app):
@@ -86,7 +89,7 @@ def ignore_external_refs(app, env, node, contnode):
     Returns None to ignore it (no warning), or returns contnode to continue.
     """
     # intersphinx adds a custom attribute to its nodes:
-    if getattr(node, 'intersphinx', False):
+    if getattr(node, "intersphinx", False):
         # This is an external reference — ignore it completely
         return None
 
@@ -102,8 +105,8 @@ def setup(app: Sphinx) -> dict[str, Any]:
     app.add_builder(InventorySingleHtmlBuilder)
 
     def on_builder_inited(app):
-        inventory_builders = ('inventory-html', 'inventory-singlehtml')
-        singlehtml_builders = ('inventory-html', 'inventory-singlehtml')
+        inventory_builders = ("inventory-html", "inventory-singlehtml")
+        singlehtml_builders = ("inventory-html", "inventory-singlehtml")
 
         if app.builder.name in inventory_builders:
             app.connect("missing-reference", ignore_external_refs)
@@ -115,9 +118,9 @@ def setup(app: Sphinx) -> dict[str, Any]:
             # Rewrites "#document-{page}#{anchor}" → "{root_doc}.html#{anchor}"
             def patched_get_target_uri(docname, typ=None):
                 uri = original_get_target_uri(docname, typ)
-                if uri.startswith('#document-'):
-                    next_hash = uri.find('#', len('#document-'))
-                    suffix = uri[next_hash:] if next_hash != -1 else ''
+                if uri.startswith("#document-"):
+                    next_hash = uri.find("#", len("#document-"))
+                    suffix = uri[next_hash:] if next_hash != -1 else ""
                     return app.config.root_doc + app.builder.out_suffix + suffix
                 return uri
 
