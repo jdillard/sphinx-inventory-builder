@@ -102,7 +102,13 @@ def setup(app: Sphinx) -> dict[str, Any]:
     app.add_builder(InventorySingleHtmlBuilder)
 
     def on_builder_inited(app):
-        if app.builder.name in ('inventory-singlehtml', 'singlehtml'):
+        inventory_builders = ('inventory-html', 'inventory-singlehtml')
+        singlehtml_builders = ('inventory-html', 'inventory-singlehtml')
+
+        if app.builder.name in inventory_builders:
+            app.connect("missing-reference", ignore_external_refs)
+
+        if app.builder.name in singlehtml_builders:
             original_get_target_uri = app.builder.get_target_uri
 
             # Patch get_target_uri to fix internal links for single-page builds.
@@ -119,6 +125,5 @@ def setup(app: Sphinx) -> dict[str, Any]:
 
     app.connect("config-inited", disable_intersphinx)
     app.connect("builder-inited", on_builder_inited)
-    app.connect("missing-reference", ignore_external_refs)
 
     return {"parallel_read_safe": True}
